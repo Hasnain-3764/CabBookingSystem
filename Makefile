@@ -8,7 +8,7 @@ SRC_DIR = src
 INCLUDE_DIR = include
 
 # Source and object files
-SRC = ./main.cpp $(SRC_DIR)/User.cpp $(SRC_DIR)/Rider.cpp $(SRC_DIR)/Driver.cpp $(SRC_DIR)/Database.cpp
+SRC = ./main.cpp $(SRC_DIR)/User.cpp $(SRC_DIR)/Rider.cpp $(SRC_DIR)/Driver.cpp $(SRC_DIR)/database.cpp
 OBJ = $(SRC:.cpp=.o)
 
 # Output executable
@@ -24,10 +24,10 @@ $(TARGET): $(OBJ)
 # Rule to create .o from .cpp files in the src directory
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+	@echo "Compiled: $< -> $@"  # Debugging: Prints each object file being compiled
 
 # Clean up the build files
 clean:
 	rm -f $(OBJ) $(TARGET)
 
 .PHONY: all clean
-

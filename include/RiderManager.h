@@ -14,4 +14,4 @@ public:
     void registerDriver(std::string name, std::string location);
     void requestRide(int riderId);
     void viewRides() const;
-}
+};
