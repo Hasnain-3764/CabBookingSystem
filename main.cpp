@@ -1,6 +1,6 @@
 // Start of Cab Booking Project
 #include <iostream>
-#include <RiderManager.h>
+#include <RideManager.h>
 #include "User.h"
 #include "Rider.h"
 #include "Driver.h"
