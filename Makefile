@@ -8,7 +8,7 @@ SRC_DIR = src
 INCLUDE_DIR = include
 
 # Source and object files
-SRC = ./main.cpp $(SRC_DIR)/User.cpp $(SRC_DIR)/Rider.cpp $(SRC_DIR)/Driver.cpp $(SRC_DIR)/database.cpp
+SRC = ./main.cpp $(SRC_DIR)/User.cpp $(SRC_DIR)/Rider.cpp $(SRC_DIR)/Driver.cpp $(SRC_DIR)/database.cpp $(SRC_DIR)/Ride.cpp $(SRC_DIR)/RideManager.cpp
 OBJ = $(SRC:.cpp=.o)
 
 # Output executable
