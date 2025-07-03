@@ -1,0 +1,22 @@
+// compilation command.
+g++ -std=c++11 -Wall -Iinclude ./main.cpp src/User.cpp -o cab_booking -lsqlite3 -pthread
+./cab_booking
+
+tasks
+1. Currently the rides are taking place but arent' updating ride history. Reason?
+    the reason is we are not putting rides in database
+    No we actually are putting but we are calling readHistory.size()
+    But since readHistory is a vector and thus in-memory, it will always be 0 when program starts, so we will get same index
+1.Solution: We use Auto increment and leave the id generation part to the database. 
+
+2. Currently time is stored as a c string in database, decide what to do with it
+
+
+thoughts
+1. Tasks such as addition of new users(rider/driver) should be done via command line, or html forms in case of website, 
+not directly by adding data in the code
+2. What if multiple users sign up with same name, surely we count them as separate entities, but we are only adding them in either
+    driver or rider table in database. Should we also add them into user?
+3. How will login functionality work for all users.
+4. Do we have a separate login for rider, driver, admin? that does make sense. Having a common login is confusing. So we need to have login classes
+5. I haven't much focused on handling concurrent requests, or handling synchronisation.

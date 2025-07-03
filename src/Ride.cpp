@@ -3,6 +3,8 @@
 #include <chrono>
 #include <thread>
 
+Ride::Ride(int riderId, int driverId)
+    : rideId(-1), riderId(riderId), driverId(driverId), fare(0.0) {}
 
 Ride::Ride(int rideId, int riderId, int driverId)
     :rideId(rideId), riderId(riderId), driverId(driverId), fare(0.0) {}

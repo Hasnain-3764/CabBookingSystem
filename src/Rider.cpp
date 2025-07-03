@@ -1,6 +1,9 @@
 #include "Rider.h"
 #include <iostream>
 
+Rider::Rider(std::string name, std::string location, bool isVIP)
+    :User(name, location), isVIP(isVIP) {}
+
 Rider::Rider(int id, std::string name, std::string location, bool isVIP)
     :User(id, name, location), isVIP(isVIP) {}
 

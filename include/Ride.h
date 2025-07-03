@@ -13,6 +13,7 @@ private:
     double fare;
 
 public:
+    Ride(int riderId, int driverId);
     Ride(int rideId, int riderId, int driverId);
     void startRide();
     void completeRide();

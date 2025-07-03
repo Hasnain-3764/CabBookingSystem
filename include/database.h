@@ -21,4 +21,6 @@ public:
     bool insertDriver(const Driver& driver);
     bool insertRide(const Ride& ride);
     void fetchRides();
+    sqlite3* getDb() const;
+
 };

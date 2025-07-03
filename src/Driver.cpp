@@ -1,6 +1,8 @@
 #include "Driver.h"
 #include <iostream>
 
+Driver::Driver(std::string name, std::string location, bool isAvailable)
+    :User(name, location), isAvailable(isAvailable) {}
 Driver::Driver(int id, std::string name, std::string location, bool isAvailable)
     : User(id, name, location), isAvailable(isAvailable) {}
 

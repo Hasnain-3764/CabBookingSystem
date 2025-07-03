@@ -23,28 +23,32 @@ void Database::close(){
     }
 }
 
+sqlite3* Database::getDb() const { 
+    return db; 
+}
+
 bool Database::createTable(){
-    const char* createRidersTableSQL = "CREATE TABLE IF NOT EXISTS riders (id INTEGER PRIMARY KEY, name TEXT NOT NULL, location TEXT NOT NULL, isVIP INTEGER);";
-    const char* createDriversTableSQL = "CREATE TABLE IF NOT EXISTS drivers (id INTEGER PRIMARY KEY, name TEXT NOT NULL, location TEXT NOT NULL, isAvailable INTEGER);";
-    const char* createRidesTableSQL = "CREATE TABLE IF NOT EXISTS rides (rideId INTEGER PRIMARY KEY, riderId INTEGER, driverId INTEGER, startTime TEXT, endTime TEXT, fare REAL);";
+    const char* createRidersTableSQL = "CREATE TABLE IF NOT EXISTS riders (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, location TEXT NOT NULL, isVIP INTEGER);";
+    const char* createDriversTableSQL = "CREATE TABLE IF NOT EXISTS drivers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, location TEXT NOT NULL, isAvailable INTEGER);";
+    const char* createRidesTableSQL = "CREATE TABLE IF NOT EXISTS rides (rideId INTEGER PRIMARY KEY AUTOINCREMENT, riderId INTEGER, driverId INTEGER, startTime TEXT, endTime TEXT, fare REAL);";
     char* errMsg = nullptr;
     int rc = sqlite3_exec(db, createRidersTableSQL, nullptr, nullptr, &errMsg);
     if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << errMsg << std::endl;
+        std::cerr << "SQL error 1: " << errMsg << std::endl;
         sqlite3_free(errMsg);
         return false;
     }
 
     rc = sqlite3_exec(db, createDriversTableSQL, nullptr, nullptr, &errMsg);
     if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << errMsg << std::endl;
+        std::cerr << "SQL error 2: " << errMsg << std::endl;
         sqlite3_free(errMsg);
         return false;
     }
 
     rc = sqlite3_exec(db, createRidesTableSQL, nullptr, nullptr, &errMsg);
     if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << errMsg << std::endl;
+        std::cerr << "SQL error 3: " << errMsg << std::endl;
         sqlite3_free(errMsg);
         return false;
     }
@@ -52,11 +56,11 @@ bool Database::createTable(){
 }
 
 bool Database::insertRider(const Rider& rider) {
-    std::string sql = "INSERT INTO riders (id, name, location, isVIP) VALUES (" + std::to_string(rider.getId()) + ", '" + rider.getName() + "', '" + rider.getLocation() + "', " + std::to_string(rider.getIsVIP()) + ");";
+    std::string sql = "INSERT INTO riders (name, location, isVIP) VALUES ('" + rider.getName() + "', '" + rider.getLocation() + "', " + std::to_string(rider.getIsVIP()) + ");";
     char* errMsg = nullptr;
     int rc = sqlite3_exec(db, sql.c_str(), nullptr, nullptr, &errMsg);
     if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << errMsg << std::endl;
+        std::cerr << "SQL error 4: " << errMsg << std::endl;
         sqlite3_free(errMsg);
         return false;
     }
@@ -64,11 +68,11 @@ bool Database::insertRider(const Rider& rider) {
 }
 
 bool Database::insertDriver(const Driver& driver){
-    std::string sql = "INSERT INTO drivers (id, name, location, isAvailable) VALUES (" + std::to_string(driver.getId()) + ", '" + driver.getName() + "', '" + driver.getLocation() + "', " + std::to_string(driver.getIsAvailable()) + ");";
+    std::string sql = "INSERT INTO drivers (name, location, isAvailable) VALUES ('" + driver.getName() + "', '" + driver.getLocation() + "', " + std::to_string(driver.getIsAvailable()) + ");";
     char* errMsg = nullptr;
     int rc = sqlite3_exec(db, sql.c_str(), nullptr, nullptr, &errMsg);
     if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << errMsg << std::endl;
+        std::cerr << "SQL error 5: " << errMsg << std::endl;
         sqlite3_free(errMsg);
         return false;
     }
@@ -79,11 +83,11 @@ bool Database::insertRide(const Ride& ride){
     auto startTime = std::chrono::system_clock::to_time_t(ride.getStartTime());
     auto endTime = std::chrono::system_clock::to_time_t(ride.getEndTime());
     double fare = ride.getFare();
-    std::string sql = "INSERT INTO rides (rideId, riderId, driverId, startTime, endTime, fare) VALUES (" + std::to_string(ride.getRideId()) + ", " + std::to_string(ride.getRiderId()) + ", " + std::to_string(ride.getDriverId()) + ", '" + std::to_string(startTime) + "', '" + std::to_string(endTime) + "', " + std::to_string(fare) + ");";
+    std::string sql = "INSERT INTO rides (riderId, driverId, startTime, endTime, fare) VALUES (" + std::to_string(ride.getRiderId()) + ", " + std::to_string(ride.getDriverId()) + ", '" + std::to_string(startTime) + "', '" + std::to_string(endTime) + "', " + std::to_string(fare) + ");";
     char* errMsg = nullptr;
     int rc = sqlite3_exec(db, sql.c_str(), nullptr, nullptr, &errMsg);
     if (rc != SQLITE_OK) {
-        std::cerr << "SQL error: " << errMsg << std::endl;
+        std::cerr << "SQL error 6: " << errMsg << std::endl;
         sqlite3_free(errMsg);
         return false;
     }
